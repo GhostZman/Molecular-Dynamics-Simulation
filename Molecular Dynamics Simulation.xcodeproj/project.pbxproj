@@ -14,6 +14,9 @@
 		68982BCB2BB7708D007BFD74 /* Molecular_Dynamics_SimulationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BCA2BB7708D007BFD74 /* Molecular_Dynamics_SimulationTests.swift */; };
 		68982BD52BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BD42BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITests.swift */; };
 		68982BD72BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BD62BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITestsLaunchTests.swift */; };
+		68982BE42BB777DE007BFD74 /* MD Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BE32BB777DE007BFD74 /* MD Simulation.swift */; };
+		68982BE52BB777DE007BFD74 /* MD Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BE32BB777DE007BFD74 /* MD Simulation.swift */; };
+		68982BE62BB777DE007BFD74 /* MD Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BE32BB777DE007BFD74 /* MD Simulation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,7 @@
 		68982BD02BB7708D007BFD74 /* Molecular Dynamics SimulationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Molecular Dynamics SimulationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68982BD42BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Molecular_Dynamics_SimulationUITests.swift; sourceTree = "<group>"; };
 		68982BD62BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Molecular_Dynamics_SimulationUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		68982BE32BB777DE007BFD74 /* MD Simulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MD Simulation.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,7 @@
 			children = (
 				68982BB82BB7708C007BFD74 /* Molecular_Dynamics_SimulationApp.swift */,
 				68982BBA2BB7708C007BFD74 /* ContentView.swift */,
+				68982BE32BB777DE007BFD74 /* MD Simulation.swift */,
 				68982BBC2BB7708D007BFD74 /* Assets.xcassets */,
 				68982BBE2BB7708D007BFD74 /* Molecular_Dynamics_Simulation.entitlements */,
 				68982BBF2BB7708D007BFD74 /* Preview Content */,
@@ -260,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68982BBB2BB7708C007BFD74 /* ContentView.swift in Sources */,
+				68982BE42BB777DE007BFD74 /* MD Simulation.swift in Sources */,
 				68982BB92BB7708C007BFD74 /* Molecular_Dynamics_SimulationApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68982BE52BB777DE007BFD74 /* MD Simulation.swift in Sources */,
 				68982BCB2BB7708D007BFD74 /* Molecular_Dynamics_SimulationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68982BD72BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITestsLaunchTests.swift in Sources */,
+				68982BE62BB777DE007BFD74 /* MD Simulation.swift in Sources */,
 				68982BD52BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
