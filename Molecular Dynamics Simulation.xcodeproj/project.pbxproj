@@ -1,0 +1,614 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		68982BB92BB7708C007BFD74 /* Molecular_Dynamics_SimulationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BB82BB7708C007BFD74 /* Molecular_Dynamics_SimulationApp.swift */; };
+		68982BBB2BB7708C007BFD74 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BBA2BB7708C007BFD74 /* ContentView.swift */; };
+		68982BBD2BB7708D007BFD74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68982BBC2BB7708D007BFD74 /* Assets.xcassets */; };
+		68982BC12BB7708D007BFD74 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68982BC02BB7708D007BFD74 /* Preview Assets.xcassets */; };
+		68982BCB2BB7708D007BFD74 /* Molecular_Dynamics_SimulationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BCA2BB7708D007BFD74 /* Molecular_Dynamics_SimulationTests.swift */; };
+		68982BD52BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BD42BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITests.swift */; };
+		68982BD72BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BD62BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		68982BC72BB7708D007BFD74 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 68982BAD2BB7708C007BFD74 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 68982BB42BB7708C007BFD74;
+			remoteInfo = "Molecular Dynamics Simulation";
+		};
+		68982BD12BB7708D007BFD74 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 68982BAD2BB7708C007BFD74 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 68982BB42BB7708C007BFD74;
+			remoteInfo = "Molecular Dynamics Simulation";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		68982BB52BB7708C007BFD74 /* Molecular Dynamics Simulation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Molecular Dynamics Simulation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68982BB82BB7708C007BFD74 /* Molecular_Dynamics_SimulationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Molecular_Dynamics_SimulationApp.swift; sourceTree = "<group>"; };
+		68982BBA2BB7708C007BFD74 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		68982BBC2BB7708D007BFD74 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		68982BBE2BB7708D007BFD74 /* Molecular_Dynamics_Simulation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Molecular_Dynamics_Simulation.entitlements; sourceTree = "<group>"; };
+		68982BC02BB7708D007BFD74 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		68982BC62BB7708D007BFD74 /* Molecular Dynamics SimulationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Molecular Dynamics SimulationTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68982BCA2BB7708D007BFD74 /* Molecular_Dynamics_SimulationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Molecular_Dynamics_SimulationTests.swift; sourceTree = "<group>"; };
+		68982BD02BB7708D007BFD74 /* Molecular Dynamics SimulationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Molecular Dynamics SimulationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68982BD42BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Molecular_Dynamics_SimulationUITests.swift; sourceTree = "<group>"; };
+		68982BD62BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Molecular_Dynamics_SimulationUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		68982BB22BB7708C007BFD74 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68982BC32BB7708D007BFD74 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68982BCD2BB7708D007BFD74 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		68982BAC2BB7708C007BFD74 = {
+			isa = PBXGroup;
+			children = (
+				68982BB72BB7708C007BFD74 /* Molecular Dynamics Simulation */,
+				68982BC92BB7708D007BFD74 /* Molecular Dynamics SimulationTests */,
+				68982BD32BB7708D007BFD74 /* Molecular Dynamics SimulationUITests */,
+				68982BB62BB7708C007BFD74 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		68982BB62BB7708C007BFD74 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				68982BB52BB7708C007BFD74 /* Molecular Dynamics Simulation.app */,
+				68982BC62BB7708D007BFD74 /* Molecular Dynamics SimulationTests.xctest */,
+				68982BD02BB7708D007BFD74 /* Molecular Dynamics SimulationUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		68982BB72BB7708C007BFD74 /* Molecular Dynamics Simulation */ = {
+			isa = PBXGroup;
+			children = (
+				68982BB82BB7708C007BFD74 /* Molecular_Dynamics_SimulationApp.swift */,
+				68982BBA2BB7708C007BFD74 /* ContentView.swift */,
+				68982BBC2BB7708D007BFD74 /* Assets.xcassets */,
+				68982BBE2BB7708D007BFD74 /* Molecular_Dynamics_Simulation.entitlements */,
+				68982BBF2BB7708D007BFD74 /* Preview Content */,
+			);
+			path = "Molecular Dynamics Simulation";
+			sourceTree = "<group>";
+		};
+		68982BBF2BB7708D007BFD74 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				68982BC02BB7708D007BFD74 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		68982BC92BB7708D007BFD74 /* Molecular Dynamics SimulationTests */ = {
+			isa = PBXGroup;
+			children = (
+				68982BCA2BB7708D007BFD74 /* Molecular_Dynamics_SimulationTests.swift */,
+			);
+			path = "Molecular Dynamics SimulationTests";
+			sourceTree = "<group>";
+		};
+		68982BD32BB7708D007BFD74 /* Molecular Dynamics SimulationUITests */ = {
+			isa = PBXGroup;
+			children = (
+				68982BD42BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITests.swift */,
+				68982BD62BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITestsLaunchTests.swift */,
+			);
+			path = "Molecular Dynamics SimulationUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		68982BB42BB7708C007BFD74 /* Molecular Dynamics Simulation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 68982BDA2BB7708D007BFD74 /* Build configuration list for PBXNativeTarget "Molecular Dynamics Simulation" */;
+			buildPhases = (
+				68982BB12BB7708C007BFD74 /* Sources */,
+				68982BB22BB7708C007BFD74 /* Frameworks */,
+				68982BB32BB7708C007BFD74 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Molecular Dynamics Simulation";
+			productName = "Molecular Dynamics Simulation";
+			productReference = 68982BB52BB7708C007BFD74 /* Molecular Dynamics Simulation.app */;
+			productType = "com.apple.product-type.application";
+		};
+		68982BC52BB7708D007BFD74 /* Molecular Dynamics SimulationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 68982BDD2BB7708D007BFD74 /* Build configuration list for PBXNativeTarget "Molecular Dynamics SimulationTests" */;
+			buildPhases = (
+				68982BC22BB7708D007BFD74 /* Sources */,
+				68982BC32BB7708D007BFD74 /* Frameworks */,
+				68982BC42BB7708D007BFD74 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				68982BC82BB7708D007BFD74 /* PBXTargetDependency */,
+			);
+			name = "Molecular Dynamics SimulationTests";
+			productName = "Molecular Dynamics SimulationTests";
+			productReference = 68982BC62BB7708D007BFD74 /* Molecular Dynamics SimulationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		68982BCF2BB7708D007BFD74 /* Molecular Dynamics SimulationUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 68982BE02BB7708D007BFD74 /* Build configuration list for PBXNativeTarget "Molecular Dynamics SimulationUITests" */;
+			buildPhases = (
+				68982BCC2BB7708D007BFD74 /* Sources */,
+				68982BCD2BB7708D007BFD74 /* Frameworks */,
+				68982BCE2BB7708D007BFD74 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				68982BD22BB7708D007BFD74 /* PBXTargetDependency */,
+			);
+			name = "Molecular Dynamics SimulationUITests";
+			productName = "Molecular Dynamics SimulationUITests";
+			productReference = 68982BD02BB7708D007BFD74 /* Molecular Dynamics SimulationUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		68982BAD2BB7708C007BFD74 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					68982BB42BB7708C007BFD74 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					68982BC52BB7708D007BFD74 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 68982BB42BB7708C007BFD74;
+					};
+					68982BCF2BB7708D007BFD74 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 68982BB42BB7708C007BFD74;
+					};
+				};
+			};
+			buildConfigurationList = 68982BB02BB7708C007BFD74 /* Build configuration list for PBXProject "Molecular Dynamics Simulation" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 68982BAC2BB7708C007BFD74;
+			productRefGroup = 68982BB62BB7708C007BFD74 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				68982BB42BB7708C007BFD74 /* Molecular Dynamics Simulation */,
+				68982BC52BB7708D007BFD74 /* Molecular Dynamics SimulationTests */,
+				68982BCF2BB7708D007BFD74 /* Molecular Dynamics SimulationUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		68982BB32BB7708C007BFD74 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68982BC12BB7708D007BFD74 /* Preview Assets.xcassets in Resources */,
+				68982BBD2BB7708D007BFD74 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68982BC42BB7708D007BFD74 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68982BCE2BB7708D007BFD74 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		68982BB12BB7708C007BFD74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68982BBB2BB7708C007BFD74 /* ContentView.swift in Sources */,
+				68982BB92BB7708C007BFD74 /* Molecular_Dynamics_SimulationApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68982BC22BB7708D007BFD74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68982BCB2BB7708D007BFD74 /* Molecular_Dynamics_SimulationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68982BCC2BB7708D007BFD74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68982BD72BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITestsLaunchTests.swift in Sources */,
+				68982BD52BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		68982BC82BB7708D007BFD74 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 68982BB42BB7708C007BFD74 /* Molecular Dynamics Simulation */;
+			targetProxy = 68982BC72BB7708D007BFD74 /* PBXContainerItemProxy */;
+		};
+		68982BD22BB7708D007BFD74 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 68982BB42BB7708C007BFD74 /* Molecular Dynamics Simulation */;
+			targetProxy = 68982BD12BB7708D007BFD74 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		68982BD82BB7708D007BFD74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		68982BD92BB7708D007BFD74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		68982BDB2BB7708D007BFD74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Molecular Dynamics Simulation/Molecular_Dynamics_Simulation.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Molecular Dynamics Simulation/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ZIPhys440.Molecular-Dynamics-Simulation";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		68982BDC2BB7708D007BFD74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Molecular Dynamics Simulation/Molecular_Dynamics_Simulation.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Molecular Dynamics Simulation/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ZIPhys440.Molecular-Dynamics-Simulation";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		68982BDE2BB7708D007BFD74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ZIPhys440.Molecular-Dynamics-SimulationTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Molecular Dynamics Simulation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Molecular Dynamics Simulation";
+			};
+			name = Debug;
+		};
+		68982BDF2BB7708D007BFD74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ZIPhys440.Molecular-Dynamics-SimulationTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Molecular Dynamics Simulation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Molecular Dynamics Simulation";
+			};
+			name = Release;
+		};
+		68982BE12BB7708D007BFD74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ZIPhys440.Molecular-Dynamics-SimulationUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Molecular Dynamics Simulation";
+			};
+			name = Debug;
+		};
+		68982BE22BB7708D007BFD74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ZIPhys440.Molecular-Dynamics-SimulationUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Molecular Dynamics Simulation";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		68982BB02BB7708C007BFD74 /* Build configuration list for PBXProject "Molecular Dynamics Simulation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68982BD82BB7708D007BFD74 /* Debug */,
+				68982BD92BB7708D007BFD74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		68982BDA2BB7708D007BFD74 /* Build configuration list for PBXNativeTarget "Molecular Dynamics Simulation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68982BDB2BB7708D007BFD74 /* Debug */,
+				68982BDC2BB7708D007BFD74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		68982BDD2BB7708D007BFD74 /* Build configuration list for PBXNativeTarget "Molecular Dynamics SimulationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68982BDE2BB7708D007BFD74 /* Debug */,
+				68982BDF2BB7708D007BFD74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		68982BE02BB7708D007BFD74 /* Build configuration list for PBXNativeTarget "Molecular Dynamics SimulationUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68982BE12BB7708D007BFD74 /* Debug */,
+				68982BE22BB7708D007BFD74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 68982BAD2BB7708C007BFD74 /* Project object */;
+}
