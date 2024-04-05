@@ -11,13 +11,15 @@ import Observation
 @Observable class MDSimulation{
     var L: Int = 1
     var nAtom: Int = 4
-    var nMax: Int = 4 //rename this once you figure out what it does
+    var nMax: Int = 4
     var x: [Double] = []
     var fx: [[Double]] = [[]]
 
     init() {
+        self.nMax = self.nAtom
         self.x = Array(repeating: 0, count: self.nMax)
         self.fx = Array(repeating: Array(repeating: 0, count: 2), count: nMax)
+        
     }
     
     func runSimulation() {
@@ -30,7 +32,7 @@ import Observation
         var nPrint: Int = 100
         var nDim: Int = 1
         
-        var h: Double = 0.0004
+        var h: Double = 0.004
         var hover2: Double
         var PE: Double
         var KE: Double
@@ -61,7 +63,7 @@ import Observation
             KE = KE + (vx[i]*vx[i])/2
         }
         //print("\(t) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
-        print("\(t) \npos: \(x) \nvel: \(vx)")
+        print("\(t) \npos: \(x) \nvel: \(vx) \nforce: \(fx)")
         for t in stride(from: 1, to: nStep, by: 1){     // Main loop
             for i in stride(from: 0, through: nAtom - 1, by: 1) {   // Velocity Verlet
                 PE = forces(t: t1, PE: PE)
@@ -80,7 +82,7 @@ import Observation
                 KE = KE + (vx[i]*vx[i])/2
             }
             T = 2.0 * KE / (3.0 * Double(nAtom))
-            print("\(t) \npos: \(x) \nvel: \(vx) \nforces: \(fx)")
+            print("\(t) \npos: \(x) \nvel: \(vx) \nforce: \(fx)")
             if (t % nPrint == 0){
                 //print("\(t) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
                 //print("\(t) \npos: \(x) \nvel: \(vx)")
@@ -100,7 +102,7 @@ import Observation
         var r2cut: Double = 9.0
         
         var newPE: Double = 0.0     // Initialize
-        for i in stride(from: 0, to: nAtom - 1, by: 1){
+        for i in stride(from: 0, through: nAtom - 1, by: 1){
             fx[i][t] = 0
         }
         
@@ -112,14 +114,19 @@ import Observation
                 }
                 r2 = dx * dx
                 if (r2 < r2cut) {   // Cut off
-                    if (r2 == 0.0) {
-                        r2 = 0.0001
+                    if (abs(r2) < 1.0E-7) {
+                        r2 = 1.0E-7
                     }
                     invr2 = 1.0/r2
-                    fijx = 48*(pow(invr2, 3) - 0.5)*pow(invr2, 3)
+                    fijx = 48*(pow(invr2, 3.0) - 0.5)*pow(invr2, 3.0)
                     fijx = fijx*invr2*dx
-                    fx[i][t] = fx[i][t] + fijx
-                    fx[j][t] = fx[j][t] - fijx
+                    
+                    let old1 = fx[i][t]
+                    let old2 = fx[j][t]
+                    
+                    fx[i][t] = old1 + fijx
+                    fx[j][t] = old2 - fijx
+                    //print(fx[i][t],fx[j][t],fijx,old1,old2)
                     newPE = newPE + 4 * pow(invr2, 3) * (pow(invr2, 3) - 1)
                 }
             }
