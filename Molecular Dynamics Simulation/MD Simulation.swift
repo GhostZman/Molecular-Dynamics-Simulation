@@ -43,28 +43,28 @@ import Observation
         
         print("nAtom = \(nAtom) L = \(L)")
         i = -1
-        for ix in stride(from: 0, through: L-1, by: 1){
+        for ix in stride(from: 0, through: L-1, by: 1){  //Set up lattice of side L
             i = i+1
-            x[i] = Double(ix)
+            x[i] = Double(ix)   // Inital velocities
             vx[i] = (Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0))/12.0 - 0.5
-            vx[i] = vx[i]*sqrt(tInit)
+            vx[i] = vx[i]*sqrt(tInit)   // Scale v with temperature
             print("init vx = \(vx[i])")
         }
-        t1 = 0
+        t1 = 0      //t, t+h indicies
         t2 = 1
         hover2 = h/2.0
         t = 0
-        KE = 0.0
+        KE = 0.0    // inital KE & PE
         PE = 0.0
         PE = forces(t: t1, PE: PE)
         for i in stride(from: 0, through: nAtom - 1, by: 1) {
             KE = KE + (vx[i]*vx[i])/2
         }
         print("\(t) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
-        for t in stride(from: 1, to: nStep, by: 1){
-            for i in stride(from: 0, through: nAtom - 1, by: 1) {
+        for t in stride(from: 1, to: nStep, by: 1){     // Main loop
+            for i in stride(from: 0, through: nAtom - 1, by: 1) {   // Velocity Verlet
                 PE = forces(t: t1, PE: PE)
-                x[i] = x[i] + h*(vx[i] + hover2*fx[i][t1])
+                x[i] = x[i] + h*(vx[i] + hover2*fx[i][t1])      //PBC
                 if (x[i] <= 0.0){
                     x[i] = x[i] + Double(L)
                 }
@@ -82,7 +82,7 @@ import Observation
             if (t % nPrint == 0){
                 print("\(t) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
             }
-            iTemp = t1
+            iTemp = t1      // Time t and t+h
             t1 = t2
             t2 = iTemp
         }
@@ -101,14 +101,14 @@ import Observation
             fx[i][t] = 0
         }
         
-        for i in stride(from: 0, through: nAtom - 2, by: 1){
+        for i in stride(from: 0, through: nAtom - 2, by: 1){    // Initialize
             for j in stride(from: i+1, through: nAtom - 1, by: 1) {
                 dx = x[i] - x[j]
-                if (abs(dx) > 0.5*Double(L)){
+                if (abs(dx) > 0.5*Double(L)){   // PBC
                     dx = dx - sign(a: Double(L), b: dx)
                 }
                 r2 = dx * dx
-                if (r2 < r2cut) {
+                if (r2 < r2cut) {   // Cut off
                     if (r2 == 0.0) {
                         r2 = 0.0001
                     }
