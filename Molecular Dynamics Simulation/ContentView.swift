@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    let mySim = MDSimulation()
     var body: some View {
         VStack {
             Canvas { context, size in
@@ -15,9 +16,16 @@ struct ContentView: View {
                 context.stroke(Path(roundedRect: CGRect(origin: .zero, size: size), cornerSize: CGSize(width: 50, height: 20)), with: .color(.green))
             }
             .frame(width: 300, height: 200)
+            
+            Button("Start", action: sim)
+            
         }
         .background(.black)
         .ignoresSafeArea()
         .padding()
+    }
+    
+    func sim(){
+        mySim.runSimulation()
     }
 }

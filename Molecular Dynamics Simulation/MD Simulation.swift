@@ -10,14 +10,14 @@ import Observation
 
 @Observable class MDSimulation{
     var L: Int = 1
-    var nAtom: Int = 8
-    var nMax: Int = 513 //rename this once you figure out what it does
+    var nAtom: Int = 4
+    var nMax: Int = 4 //rename this once you figure out what it does
     var x: [Double] = []
     var fx: [[Double]] = [[]]
 
     init() {
         self.x = Array(repeating: 0, count: self.nMax)
-        self.fx = Array(repeating: Array(repeating: 0, count: nMax), count: 2)
+        self.fx = Array(repeating: Array(repeating: 0, count: 2), count: nMax)
     }
     
     func runSimulation() {
@@ -60,7 +60,8 @@ import Observation
         for i in stride(from: 0, through: nAtom - 1, by: 1) {
             KE = KE + (vx[i]*vx[i])/2
         }
-        print("\(t) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
+        //print("\(t) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
+        print("\(t) \npos: \(x) \nvel: \(vx)")
         for t in stride(from: 1, to: nStep, by: 1){     // Main loop
             for i in stride(from: 0, through: nAtom - 1, by: 1) {   // Velocity Verlet
                 PE = forces(t: t1, PE: PE)
@@ -79,8 +80,10 @@ import Observation
                 KE = KE + (vx[i]*vx[i])/2
             }
             T = 2.0 * KE / (3.0 * Double(nAtom))
+            print("\(t) \npos: \(x) \nvel: \(vx) \nforces: \(fx)")
             if (t % nPrint == 0){
-                print("\(t) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
+                //print("\(t) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
+                //print("\(t) \npos: \(x) \nvel: \(vx)")
             }
             iTemp = t1      // Time t and t+h
             t1 = t2
@@ -96,12 +99,12 @@ import Observation
         var dx: Double
         var r2cut: Double = 9.0
         
-        var newPE: Double = 0.0
+        var newPE: Double = 0.0     // Initialize
         for i in stride(from: 0, to: nAtom - 1, by: 1){
             fx[i][t] = 0
         }
         
-        for i in stride(from: 0, through: nAtom - 2, by: 1){    // Initialize
+        for i in stride(from: 0, through: nAtom - 2, by: 1){
             for j in stride(from: i+1, through: nAtom - 1, by: 1) {
                 dx = x[i] - x[j]
                 if (abs(dx) > 0.5*Double(L)){   // PBC
