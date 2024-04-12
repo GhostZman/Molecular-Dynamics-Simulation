@@ -17,6 +17,9 @@
 		68982BE42BB777DE007BFD74 /* MD Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BE32BB777DE007BFD74 /* MD Simulation.swift */; };
 		68982BE52BB777DE007BFD74 /* MD Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BE32BB777DE007BFD74 /* MD Simulation.swift */; };
 		68982BE62BB777DE007BFD74 /* MD Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68982BE32BB777DE007BFD74 /* MD Simulation.swift */; };
+		68B174272BC9D75300775EF9 /* Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B174262BC9D75300775EF9 /* Particle.swift */; };
+		68B174282BC9D75300775EF9 /* Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B174262BC9D75300775EF9 /* Particle.swift */; };
+		68B174292BC9D75300775EF9 /* Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B174262BC9D75300775EF9 /* Particle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,7 @@
 		68982BD42BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Molecular_Dynamics_SimulationUITests.swift; sourceTree = "<group>"; };
 		68982BD62BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Molecular_Dynamics_SimulationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		68982BE32BB777DE007BFD74 /* MD Simulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MD Simulation.swift"; sourceTree = "<group>"; };
+		68B174262BC9D75300775EF9 /* Particle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Particle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 				68982BBC2BB7708D007BFD74 /* Assets.xcassets */,
 				68982BBE2BB7708D007BFD74 /* Molecular_Dynamics_Simulation.entitlements */,
 				68982BBF2BB7708D007BFD74 /* Preview Content */,
+				68B174262BC9D75300775EF9 /* Particle.swift */,
 			);
 			path = "Molecular Dynamics Simulation";
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68982BBB2BB7708C007BFD74 /* ContentView.swift in Sources */,
+				68B174272BC9D75300775EF9 /* Particle.swift in Sources */,
 				68982BE42BB777DE007BFD74 /* MD Simulation.swift in Sources */,
 				68982BB92BB7708C007BFD74 /* Molecular_Dynamics_SimulationApp.swift in Sources */,
 			);
@@ -275,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68982BE52BB777DE007BFD74 /* MD Simulation.swift in Sources */,
+				68B174282BC9D75300775EF9 /* Particle.swift in Sources */,
 				68982BCB2BB7708D007BFD74 /* Molecular_Dynamics_SimulationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68982BD72BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITestsLaunchTests.swift in Sources */,
+				68B174292BC9D75300775EF9 /* Particle.swift in Sources */,
 				68982BE62BB777DE007BFD74 /* MD Simulation.swift in Sources */,
 				68982BD52BB7708D007BFD74 /* Molecular_Dynamics_SimulationUITests.swift in Sources */,
 			);
