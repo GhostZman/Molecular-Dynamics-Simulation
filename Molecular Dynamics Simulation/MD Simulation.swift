@@ -23,10 +23,7 @@ import Observation
     }
     
     func runSimulation() {
-        var t1: Int
-        var t2: Int
         var atomIndex: Int
-        var iTemp: Int
         var timeIndex: Int
         var nStep: Int = 5000
         var nPrint: Int = 100
@@ -52,13 +49,11 @@ import Observation
             atomVelocities[atomIndex] = atomVelocities[atomIndex]*sqrt(initialTemperature)   // Scale v with temperature
             print("init atomVelocities = \(atomVelocities[atomIndex])")
         }
-        t1 = 0      //timeIndex, timeIndex+stepSize indicies
-        t2 = 1
         halfTimeStep = stepSize/2.0
         timeIndex = 0
         KE = 0.0    // inital KE & PE
         PE = 0.0
-        PE = forces(t: t1, PE: PE)
+        PE = updateForces()
         for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1) {
             KE = KE + (atomVelocities[atomIndex]*atomVelocities[atomIndex])/2
         }
@@ -66,8 +61,7 @@ import Observation
         print("\(timeIndex) \npos: \(atomPostions) \nvel: \(atomVelocities) \nforce: \(atomForces)")
         for timeIndex in stride(from: 1, to: nStep, by: 1){     // Main loop
             for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1) {   // Velocity Verlet
-                PE = forces(t: t1, PE: PE)
-                atomPostions[atomIndex] = atomPostions[atomIndex] + stepSize*(atomVelocities[atomIndex] + halfTimeStep*atomForces[atomIndex][t1])      //PBC
+                atomPostions[atomIndex] = atomPostions[atomIndex] + stepSize*(atomVelocities[atomIndex] + halfTimeStep*atomForces[atomIndex][1])      //PBC
                 if (atomPostions[atomIndex] <= 0.0){
                     atomPostions[atomIndex] = atomPostions[atomIndex] + Double(boxLength)
                 }
@@ -75,10 +69,10 @@ import Observation
                     atomPostions[atomIndex] = atomPostions[atomIndex] - Double(boxLength)
                 }
             }
-            PE = forces(t: t2, PE: PE)
+            PE = updateForces()
             KE = 0
             for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1){
-                atomVelocities[atomIndex] = atomVelocities[atomIndex] + halfTimeStep*(atomForces[atomIndex][t1] + atomForces[atomIndex][t2])
+                atomVelocities[atomIndex] = atomVelocities[atomIndex] + halfTimeStep*(atomForces[atomIndex][1] + atomForces[atomIndex][0])
                 KE = KE + (atomVelocities[atomIndex]*atomVelocities[atomIndex])/2
             }
             temperature = 2.0 * KE / (3.0 * Double(numAtoms))
@@ -87,14 +81,11 @@ import Observation
                 //print("\(timeIndex) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
                 //print("\(timeIndex) \npos: \(atomPostions) \nvel: \(atomVelocities)")
             }
-            iTemp = t1      // Time timeIndex and timeIndex+stepSize
-            t1 = t2
-            t2 = iTemp
         }
                 
     }
     
-    func forces(t: Int, PE: Double) -> Double {
+    func updateForces() -> Double {   //run this AFTER updating positions BEFORE updating velocities
         var forceOfiOnj: Double
         var separation2: Double
         var inverseSeparation2: Double = 0.0
@@ -103,7 +94,8 @@ import Observation
         
         var newPE: Double = 0.0     // Initialize
         for i in stride(from: 0, through: numAtoms - 1, by: 1){
-            atomForces[i][t] = 0
+            atomForces[i][0] = atomForces[i][1]
+            atomForces[i][1] = 0
         }
         
         for i in stride(from: 0, through: numAtoms - 2, by: 1){
@@ -121,11 +113,8 @@ import Observation
                     forceOfiOnj = 48*(pow(inverseSeparation2, 3.0) - 0.5)*pow(inverseSeparation2, 3.0)
                     forceOfiOnj = forceOfiOnj*inverseSeparation2*displacement
                     
-                    let old1 = atomForces[i][t]
-                    let old2 = atomForces[j][t]
-                    
-                    atomForces[i][t] = old1 + forceOfiOnj
-                    atomForces[j][t] = old2 - forceOfiOnj
+                    atomForces[i][1] = atomForces[i][1] + forceOfiOnj
+                    atomForces[j][1] = atomForces[j][1] - forceOfiOnj
                     //print(atomForces[i][t],atomForces[j][t],forceOfiOnj,old1,old2)
                     newPE = newPE + 4 * pow(inverseSeparation2, 3) * (pow(inverseSeparation2, 3) - 1)
                 }
