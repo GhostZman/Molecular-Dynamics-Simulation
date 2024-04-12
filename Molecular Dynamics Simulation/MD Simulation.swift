@@ -9,85 +9,85 @@ import Foundation
 import Observation
 
 @Observable class MDSimulation{
-    var L: Int = 1
-    var nAtom: Int = 4
+    var boxLength: Int = 1
+    var numAtoms: Int = 4
     var nMax: Int = 4
-    var x: [Double] = []
-    var fx: [[Double]] = [[]]
+    var atomPostions: [Double] = []
+    var atomForces: [[Double]] = [[]]
 
     init() {
-        self.nMax = self.nAtom
-        self.x = Array(repeating: 0, count: self.nMax)
-        self.fx = Array(repeating: Array(repeating: 0, count: 2), count: nMax)
+        self.nMax = self.numAtoms
+        self.atomPostions = Array(repeating: 0, count: self.nMax)
+        self.atomForces = Array(repeating: Array(repeating: 0, count: 2), count: nMax)
         
     }
     
     func runSimulation() {
         var t1: Int
         var t2: Int
-        var i: Int
+        var atomIndex: Int
         var iTemp: Int
-        var t: Int
+        var timeIndex: Int
         var nStep: Int = 5000
         var nPrint: Int = 100
         var nDim: Int = 1
         
-        var h: Double = 0.004
-        var hover2: Double
+        var stepSize: Double = 0.004
+        var halfTimeStep: Double
         var PE: Double
         var KE: Double
-        var T: Double
-        var tInit: Double = 10.0
-        var vx: [Double] = Array(repeating: 0, count: nMax)
+        var temperature: Double
+        var initialTemperature: Double = 10.0
+        var atomVelocities: [Double] = Array(repeating: 0, count: nMax)
         
-        self.L = Int(pow(Double(nAtom), 1.0/Double(nDim)))
-        self.nAtom = Int(pow(Double(L),Double(nDim)))
+        self.boxLength = Int(pow(Double(numAtoms), 1.0/Double(nDim)))
+        self.numAtoms = Int(pow(Double(boxLength),Double(nDim)))
         
-        print("nAtom = \(nAtom) L = \(L)")
-        i = -1
-        for ix in stride(from: 0, through: L-1, by: 1){  //Set up lattice of side L
-            i = i+1
-            x[i] = Double(ix)   // Inital velocities
-            vx[i] = (Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0))/12.0 - 0.5
-            vx[i] = vx[i]*sqrt(tInit)   // Scale v with temperature
-            print("init vx = \(vx[i])")
+        print("numAtoms = \(numAtoms) boxLength = \(boxLength)")
+        atomIndex = -1
+        for ix in stride(from: 0, through: boxLength-1, by: 1){  //Set up lattice of side boxLength
+            atomIndex = atomIndex+1
+            atomPostions[atomIndex] = Double(ix)   // Inital velocities
+            atomVelocities[atomIndex] = (Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0))/12.0 - 0.5
+            atomVelocities[atomIndex] = atomVelocities[atomIndex]*sqrt(initialTemperature)   // Scale v with temperature
+            print("init atomVelocities = \(atomVelocities[atomIndex])")
         }
-        t1 = 0      //t, t+h indicies
+        t1 = 0      //timeIndex, timeIndex+stepSize indicies
         t2 = 1
-        hover2 = h/2.0
-        t = 0
+        halfTimeStep = stepSize/2.0
+        timeIndex = 0
         KE = 0.0    // inital KE & PE
         PE = 0.0
         PE = forces(t: t1, PE: PE)
-        for i in stride(from: 0, through: nAtom - 1, by: 1) {
-            KE = KE + (vx[i]*vx[i])/2
+        for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1) {
+            KE = KE + (atomVelocities[atomIndex]*atomVelocities[atomIndex])/2
         }
-        //print("\(t) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
-        print("\(t) \npos: \(x) \nvel: \(vx) \nforce: \(fx)")
-        for t in stride(from: 1, to: nStep, by: 1){     // Main loop
-            for i in stride(from: 0, through: nAtom - 1, by: 1) {   // Velocity Verlet
+        //print("\(timeIndex) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
+        print("\(timeIndex) \npos: \(atomPostions) \nvel: \(atomVelocities) \nforce: \(atomForces)")
+        for timeIndex in stride(from: 1, to: nStep, by: 1){     // Main loop
+            for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1) {   // Velocity Verlet
                 PE = forces(t: t1, PE: PE)
-                x[i] = x[i] + h*(vx[i] + hover2*fx[i][t1])      //PBC
-                if (x[i] <= 0.0){
-                    x[i] = x[i] + Double(L)
+                atomPostions[atomIndex] = atomPostions[atomIndex] + stepSize*(atomVelocities[atomIndex] + halfTimeStep*atomForces[atomIndex][t1])      //PBC
+                if (atomPostions[atomIndex] <= 0.0){
+                    atomPostions[atomIndex] = atomPostions[atomIndex] + Double(boxLength)
                 }
-                if (x[i] >= Double(L)){
-                    x[i] = x[i] - Double(L)
+                if (atomPostions[atomIndex] >= Double(boxLength)){
+                    atomPostions[atomIndex] = atomPostions[atomIndex] - Double(boxLength)
                 }
             }
             PE = forces(t: t2, PE: PE)
             KE = 0
-            for i in stride(from: 0, through: nAtom - 1, by: 1){
-                vx[i] = vx[i] + hover2*(fx[i][t1] + fx[i][t2])
-                KE = KE + (vx[i]*vx[i])/2
+            for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1){
+                atomVelocities[atomIndex] = atomVelocities[atomIndex] + halfTimeStep*(atomForces[atomIndex][t1] + atomForces[atomIndex][t2])
+                KE = KE + (atomVelocities[atomIndex]*atomVelocities[atomIndex])/2
             }
-            T = 2.0 * KE / (3.0 * Double(nAtom))
-            print("\(t) \npos: \(x) \nvel: \(vx) \nforce: \(fx)")
-            if (t % nPrint == 0){
-                //print("\(t) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
-                //print("\(t) \npos: \(x) \nvel: \(vx)")
+            temperature = 2.0 * KE / (3.0 * Double(numAtoms))
+            print("\(timeIndex) \npos: \(atomPostions) \nvel: \(atomVelocities) \nforce: \(atomForces)")
+            if (timeIndex % nPrint == 0){
+                //print("\(timeIndex) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
+                //print("\(timeIndex) \npos: \(atomPostions) \nvel: \(atomVelocities)")
             }
-            iTemp = t1      // Time t and t+h
+            iTemp = t1      // Time timeIndex and timeIndex+stepSize
             t1 = t2
             t2 = iTemp
         }
@@ -95,39 +95,39 @@ import Observation
     }
     
     func forces(t: Int, PE: Double) -> Double {
-        var fijx: Double
-        var r2: Double
-        var invr2: Double = 0.0
-        var dx: Double
-        var r2cut: Double = 9.0
+        var forceOfiOnj: Double
+        var separation2: Double
+        var inverseSeparation2: Double = 0.0
+        var displacement: Double
+        var cutoffSeparation2: Double = 9.0
         
         var newPE: Double = 0.0     // Initialize
-        for i in stride(from: 0, through: nAtom - 1, by: 1){
-            fx[i][t] = 0
+        for i in stride(from: 0, through: numAtoms - 1, by: 1){
+            atomForces[i][t] = 0
         }
         
-        for i in stride(from: 0, through: nAtom - 2, by: 1){
-            for j in stride(from: i+1, through: nAtom - 1, by: 1) {
-                dx = x[i] - x[j]
-                if (abs(dx) > 0.5*Double(L)){   // PBC
-                    dx = dx - sign(a: Double(L), b: dx)
+        for i in stride(from: 0, through: numAtoms - 2, by: 1){
+            for j in stride(from: i+1, through: numAtoms - 1, by: 1) {
+                displacement = atomPostions[i] - atomPostions[j]
+                if (abs(displacement) > 0.5*Double(boxLength)){   // PBC
+                    displacement = displacement - sign(a: Double(boxLength), b: displacement)
                 }
-                r2 = dx * dx
-                if (r2 < r2cut) {   // Cut off
-                    if (abs(r2) < 1.0E-7) {
-                        r2 = 1.0E-7
+                separation2 = displacement * displacement
+                if (separation2 < cutoffSeparation2) {   // Cut off
+                    if (abs(separation2) < 1.0E-7) {
+                        separation2 = 1.0E-7
                     }
-                    invr2 = 1.0/r2
-                    fijx = 48*(pow(invr2, 3.0) - 0.5)*pow(invr2, 3.0)
-                    fijx = fijx*invr2*dx
+                    inverseSeparation2 = 1.0/separation2
+                    forceOfiOnj = 48*(pow(inverseSeparation2, 3.0) - 0.5)*pow(inverseSeparation2, 3.0)
+                    forceOfiOnj = forceOfiOnj*inverseSeparation2*displacement
                     
-                    let old1 = fx[i][t]
-                    let old2 = fx[j][t]
+                    let old1 = atomForces[i][t]
+                    let old2 = atomForces[j][t]
                     
-                    fx[i][t] = old1 + fijx
-                    fx[j][t] = old2 - fijx
-                    //print(fx[i][t],fx[j][t],fijx,old1,old2)
-                    newPE = newPE + 4 * pow(invr2, 3) * (pow(invr2, 3) - 1)
+                    atomForces[i][t] = old1 + forceOfiOnj
+                    atomForces[j][t] = old2 - forceOfiOnj
+                    //print(atomForces[i][t],atomForces[j][t],forceOfiOnj,old1,old2)
+                    newPE = newPE + 4 * pow(inverseSeparation2, 3) * (pow(inverseSeparation2, 3) - 1)
                 }
             }
         }
