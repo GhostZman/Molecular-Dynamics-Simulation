@@ -30,4 +30,9 @@ import Observation
             self.imagePositions.append(self.position + Double(i)*boxSize)
         }
     }
+    
+    func changePosition(newPosition: Double){
+        self.position = newPosition
+        self.updateImages()
+    }
 }

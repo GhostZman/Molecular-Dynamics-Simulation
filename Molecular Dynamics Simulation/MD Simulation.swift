@@ -65,13 +65,14 @@ import Observation
         
         for timeIndex in stride(from: 1, to: nStep, by: 1){     // Main loop
             for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1) {   // Velocity Verlet
-                atoms[atomIndex].position = atoms[atomIndex].position + stepSize*(atoms[atomIndex].velocity + halfTimeStep*atoms[atomIndex].force[1])      //PBC
-                if (atoms[atomIndex].position <= 0.0){
-                    atoms[atomIndex].position = atoms[atomIndex].position + Double(boxLength)
+                var newPosition = atoms[atomIndex].position + stepSize*(atoms[atomIndex].velocity + halfTimeStep*atoms[atomIndex].force[1])      //PBC
+                if (newPosition <= 0.0){
+                    newPosition = newPosition + Double(boxLength)
                 }
-                if (atoms[atomIndex].position >= Double(boxLength)){
-                    atoms[atomIndex].position = atoms[atomIndex].position - Double(boxLength)
+                if (newPosition >= Double(boxLength)){
+                    newPosition = newPosition - Double(boxLength)
                 }
+                atoms[atomIndex].changePosition(newPosition: newPosition)
             }
             PE = updateForces()
             KE = 0
@@ -111,22 +112,24 @@ import Observation
         
         for i in stride(from: 0, through: numAtoms - 2, by: 1){
             for j in stride(from: i+1, through: numAtoms - 1, by: 1) {
-                displacement = atoms[i].position - atoms[j].position
-                if (abs(displacement) > 0.5*Double(boxLength)){   // PBC
-                    displacement = displacement - sign(a: Double(boxLength), b: displacement)
-                }
-                separation2 = displacement * displacement
-                if (separation2 < cutoffSeparation2) {   // Cut off
-                    if (abs(separation2) < 1.0E-7) {
-                        separation2 = 1.0E-7
+                for atomImage in atoms[j].imagePositions{
+                    displacement = atoms[i].position - atomImage
+                    if (abs(displacement) > 0.5*Double(boxLength)){   // PBC
+                        displacement = displacement - sign(a: Double(boxLength), b: displacement)
                     }
-                    inverseSeparation2 = 1.0/separation2
-                    forceOfiOnj = 48*(pow(inverseSeparation2, 3.0) - 0.5)*pow(inverseSeparation2, 3.0)
-                    forceOfiOnj = forceOfiOnj*inverseSeparation2*displacement
-                    
-                    atoms[i].force[1] = atoms[i].force[1] + forceOfiOnj
-                    atoms[j].force[1] = atoms[j].force[1] - forceOfiOnj
-                    newPE = newPE + 4 * pow(inverseSeparation2, 3) * (pow(inverseSeparation2, 3) - 1)
+                    separation2 = displacement * displacement
+                    if (separation2 < cutoffSeparation2) {   // Cut off
+                        if (abs(separation2) < 1.0E-7) {
+                            separation2 = 1.0E-7
+                        }
+                        inverseSeparation2 = 1.0/separation2
+                        forceOfiOnj = 48*(pow(inverseSeparation2, 3.0) - 0.5)*pow(inverseSeparation2, 3.0)
+                        forceOfiOnj = forceOfiOnj*inverseSeparation2*displacement
+                        
+                        atoms[i].force[1] = atoms[i].force[1] + forceOfiOnj
+                        atoms[j].force[1] = atoms[j].force[1] - forceOfiOnj
+                        newPE = newPE + 4 * pow(inverseSeparation2, 3) * (pow(inverseSeparation2, 3) - 1)
+                    }
                 }
             }
         }
