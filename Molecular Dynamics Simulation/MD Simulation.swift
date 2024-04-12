@@ -12,32 +12,27 @@ import Observation
     var boxLength: Int = 1
     var numAtoms: Int = 4
     var nMax: Int = 4
-    var atomPostions: [Double] = []
-    var atomForces: [[Double]] = [[]]
     
     var atoms: [Particle] = []
 
     init() {
         self.nMax = self.numAtoms
-        self.atomPostions = Array(repeating: 0, count: self.nMax)
-        self.atomForces = Array(repeating: Array(repeating: 0, count: 2), count: nMax)
         
     }
     
     func runSimulation() {
         var atomIndex: Int
         var timeIndex: Int
-        var nStep: Int = 5000
-        var nPrint: Int = 100
-        var nDim: Int = 1
+        let nStep: Int = 5000
+        let nPrint: Int = 100
+        let nDim: Int = 1
         
-        var stepSize: Double = 0.004
+        let stepSize: Double = 0.004
         var halfTimeStep: Double
         var PE: Double
         var KE: Double
         var temperature: Double
-        var initialTemperature: Double = 10.0
-        var atomVelocities: [Double] = Array(repeating: 0, count: nMax)
+        let initialTemperature: Double = 10.0
         
         self.boxLength = Int(pow(Double(numAtoms), 1.0/Double(nDim)))
         self.numAtoms = Int(pow(Double(boxLength),Double(nDim)))
@@ -46,11 +41,11 @@ import Observation
         atomIndex = -1
         for ix in stride(from: 0, through: boxLength-1, by: 1){  //Set up lattice of side boxLength
             atomIndex = atomIndex+1
-            let atomPostion = Double(ix)   // Inital velocities
+            let atomPosition = Double(ix)   // Inital velocities
             var atomVelocity = (Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0))/12.0 - 0.5
             atomVelocity = atomVelocity*sqrt(initialTemperature)   // Scale v with temperature
             
-            atoms.append(Particle(position: atomPostion, velocity: atomVelocity, dimensions: nDim, boxSize: Double(boxLength)))
+            atoms.append(Particle(position: atomPosition, velocity: atomVelocity, dimensions: nDim, boxSize: Double(boxLength)))
             
             print("init atomVelocity = \(atoms[atomIndex].velocity)")
         }
@@ -91,7 +86,11 @@ import Observation
             }
             if (timeIndex % nPrint == 0){
                 //print("\(timeIndex) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
-                //print("\(timeIndex) \npos: \(atomPostions) \nvel: \(atomVelocities)")
+                /*print("step: \(timeIndex)\nposition    velocity         force ")
+                atoms.forEach { particle in
+                    print(particle.position, particle.velocity, particle.force)
+                }
+                */
             }
         }
                 
@@ -127,7 +126,6 @@ import Observation
                     
                     atoms[i].force[1] = atoms[i].force[1] + forceOfiOnj
                     atoms[j].force[1] = atoms[j].force[1] - forceOfiOnj
-                    //print(atomForces[i][t],atomForces[j][t],forceOfiOnj,old1,old2)
                     newPE = newPE + 4 * pow(inverseSeparation2, 3) * (pow(inverseSeparation2, 3) - 1)
                 }
             }
