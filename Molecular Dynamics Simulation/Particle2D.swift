@@ -43,12 +43,21 @@ import Observation
         }
     }
     
-    func changePosition(newPosition: [Double]){
+    func changePosition(newPosition: [Double]) {
         if newPosition.count == 2 {
             self.position = newPosition
         } else {
             print("new position has wrong number of dimensions, it will not be changed")
         }
         self.updateImages()
+    }
+    
+    func changePosition(newPosition: Double, dimIndex: Int){
+        self.position[dimIndex] = newPosition
+        self.updateImages()
+    }
+    
+    func velocityMagnitude() -> Double {
+        return sqrt(pow(velocity[0], 2) + pow(velocity[1], 2))
     }
 }
