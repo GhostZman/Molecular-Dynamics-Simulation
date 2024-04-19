@@ -32,21 +32,41 @@
 import SwiftUI
 
 struct ContentView: View {
-    let mySim = MDSimulation()
+    @ObservedObject var mySim = MDSimulation()
     @State private var points: [CGPoint] = []
     @State private var isDragging: Bool = false
     @State private var draggedIndex: Int?
     
+    
     var body: some View {
         VStack {
-            DrawingView(atoms: mySim.atoms)
-                .frame(maxWidth: 100, maxHeight: 100)
-            
+            TimelineView(.animation) { timelineContext in
+                let value = secondsValue(for: timelineContext.date)
+                
+                Canvas(
+                    opaque: true,
+                    colorMode: .linear,
+                    rendersAsynchronously: false
+                ) { context, size in
+                    let newSize = size.applying(.init(scaleX: value, y:1))
+                    let rect = CGRect(origin: .zero, size: newSize)
+                    
+                    context.fill(
+                        Rectangle().path(in: rect),
+                        with: .color(.red)
+                    )
+                }
+            }
             Button("Start", action: sim)
         }
     }
     func sim(){
         mySim.runSimulation()
+    }
+    
+    func secondsValue(for date: Date) -> Double{
+        let seconds = Calendar.current.component(.second, from: date)
+        return Double(seconds) / 60
     }
 }
 
