@@ -8,14 +8,14 @@
 import Foundation
 import Observation
 
-@Observable class Particle{
+@Observable class Particle1D{
     var position: Double
     var velocity: Double
     var force: [Double]
     var imagePositions: [Double]
     let boxSize: Double
     
-    init(position: Double, velocity: Double, dimensions: Int, boxSize: Double) {
+    init(position: Double, velocity: Double, boxSize: Double) {
         self.position = position
         self.velocity = velocity
         self.force = Array(repeating: 0, count: 2)

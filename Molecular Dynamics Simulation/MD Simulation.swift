@@ -13,7 +13,7 @@ import Observation
     var numAtoms: Int = 4
     var nMax: Int = 4
     
-    var atoms: [Particle] = []
+    var atoms: [Particle1D] = []
 
     init() {
         self.nMax = self.numAtoms
@@ -45,7 +45,7 @@ import Observation
             var atomVelocity = (Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0))/12.0 - 0.5
             atomVelocity = atomVelocity*sqrt(initialTemperature)   // Scale v with temperature
             
-            atoms.append(Particle(position: atomPosition, velocity: atomVelocity, dimensions: nDim, boxSize: Double(boxLength)))
+            atoms.append(Particle1D(position: atomPosition, velocity: atomVelocity, dimensions: nDim, boxSize: Double(boxLength)))
             
             print("init atomVelocity = \(atoms[atomIndex].velocity)")
         }
