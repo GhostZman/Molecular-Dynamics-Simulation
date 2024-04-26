@@ -37,7 +37,7 @@ struct ContentView: View {
     @State private var isDragging: Bool = false
     @State private var draggedIndex: Int?
     
-    let initalConditionsOptions = ["default", "FCC Lattice"]
+    let initalConditionsOptions = ["default", "FCC Lattice", "FCC Lattice 2"]
     @State private var selectedOptionIndex = 0
     
     var body: some View {

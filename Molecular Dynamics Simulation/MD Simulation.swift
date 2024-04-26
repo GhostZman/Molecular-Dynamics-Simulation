@@ -11,17 +11,17 @@ import SwiftUI
 
 @Observable class MDSimulation: ObservableObject{
     var boxLength: Int = 1
-    var numAtoms: Int = 4
-    var nStep: Int = 5000
+    var nStep: Int = Int(1E4)
     var stepSize: Double = 0.004
     var halfTimeStep: Double = 0.002
     var PE: Double = 0.0
     var KE: Double = 0.0
     var temperature: Double = 0.0
-    var initialTemperature: Double = 10.0
+    var initialTemperature: Double = 0.0
     let nDim: Int = 3
     let nPrint: Int = 100
     var conditionsSet: Bool = false
+    var cubrtUnitCells: Int = 2
     
     var atoms: [Particle3D] = []
 
@@ -30,10 +30,10 @@ import SwiftUI
     
     func randVelocityVector() -> [Double]{ // Inital velocities
         var atomVelocity = (Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0))/12.0 - 0.5
-        var phiDirection = Double.random(in: 0.0 ... Double.pi)
-        var thetaDirection = Double.random(in:0.0 ... Double.pi)
+        let phiDirection = Double.random(in: 0.0 ... Double.pi)
+        let thetaDirection = Double.random(in:0.0 ... Double.pi)
         atomVelocity = atomVelocity*sqrt(initialTemperature)   // Scale v with temperature
-        var velocityVector = [atomVelocity*cos(phiDirection)*sin(thetaDirection), atomVelocity*sin(phiDirection)*sin(thetaDirection), atomVelocity*cos(thetaDirection)]
+        let velocityVector = [atomVelocity*cos(phiDirection)*sin(thetaDirection), atomVelocity*sin(phiDirection)*sin(thetaDirection), atomVelocity*cos(thetaDirection)]
         return velocityVector
     }
     
@@ -42,22 +42,33 @@ import SwiftUI
     }
     
     func makeParticles(option: String) {
+        
+        let FCCPoints: [[Double]] = [[0.0, 0.0, 0.0], [0.0, 1.0, 1.0], [1.0, 1.0, 0.0], [1.0, 0.0, 1.0]]
+        
         switch option {
         case "FCC Lattice":
             self.boxLength = 2
-            self.numAtoms = 4
-            atoms.append(Particle3D(position: [0.0, 0.0, 0.0], velocity: randVelocityVector(),  boxSize: Double(boxLength)))
-            atoms.append(Particle3D(position: [0.0, 1.0, 1.0], velocity: randVelocityVector(),  boxSize: Double(boxLength)))
-            atoms.append(Particle3D(position: [1.0, 1.0, 0.0], velocity: randVelocityVector(),  boxSize: Double(boxLength)))
-            atoms.append(Particle3D(position: [1.0, 0.0, 1.0], velocity: randVelocityVector(),  boxSize: Double(boxLength)))
+            for pos in FCCPoints {
+                atoms.append(Particle3D(position: pos, velocity: randVelocityVector(),  boxSize: Double(boxLength)))
+            }
+        case "FCC Lattice 2":
+            self.boxLength = 2 * cubrtUnitCells
+            for i in stride(from: 0, to: cubrtUnitCells, by: 1) {
+                for j in stride(from: 0, to: cubrtUnitCells, by: 1) {
+                    for k in stride(from: 0, to: cubrtUnitCells, by: 1) {
+                        for pos in FCCPoints {
+                            atoms.append(Particle3D(position: [pos[0] + 2*Double(i), pos[1] + 2*Double(j), pos[2] + 2*Double(k)], velocity: randVelocityVector(),  boxSize: Double(boxLength)))
+                        }
+                    }
+                }
+            }
             
         default:
             var atomIndex: Int
             
             self.boxLength = 4
-            self.numAtoms = 4
             
-            print("numAtoms = \(numAtoms) boxLength = \(boxLength)")
+            
             atomIndex = -1
             for ix in stride(from: 0, through: boxLength-1, by: 1){  //Set up lattice of side boxLength
                 atomIndex = atomIndex+1
@@ -67,6 +78,7 @@ import SwiftUI
                 print("init atomVelocity = \(atoms[atomIndex].velocity)")
                 
             }
+            print("numAtoms = \(atoms.count) boxLength = \(boxLength)")
         }
         self.conditionsSet = true
     }
@@ -158,11 +170,7 @@ import SwiftUI
                     displacementZ = atoms[i].position[2] - atomImage[2]
                     
                     thetaAngle = acos(displacementZ/sqrt(pow(displacementX, 2)+pow(displacementY, 2)+pow(displacementZ, 2)))
-                    if displacementY > 0 {
-                        phiAngle = acos(displacementX/sqrt(pow(displacementX, 2)+pow(displacementY, 2)))
-                    } else {
-                        phiAngle = -acos(displacementX/sqrt(pow(displacementX, 2)+pow(displacementY, 2)))
-                    }
+                    phiAngle = atan2(displacementY, displacementX)
                     separation2 = pow(displacementX, 2) + pow(displacementY, 2) + pow(displacementZ, 2)
                     if (separation2 < cutoffSeparation2) {   // Cut off
                         if (abs(separation2) < 1.0E-7) {
