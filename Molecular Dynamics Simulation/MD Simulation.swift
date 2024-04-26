@@ -68,8 +68,8 @@ import SwiftUI
         }
         
         for timeIndex in stride(from: 1, to: nStep, by: 1){     // Main loop
-            usleep(5000)
-            objectWillChange.send()
+            //usleep(5000)
+            //objectWillChange.send()
             for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1) {   // Velocity Verlet
                 for dim in stride(from: 0, through: 1, by: 1){
                     var newPosition = atoms[atomIndex].position[dim] + stepSize*(atoms[atomIndex].velocity[dim] + halfTimeStep*atoms[atomIndex].force[dim][1])      //PBC

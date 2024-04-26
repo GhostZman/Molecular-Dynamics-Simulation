@@ -37,7 +37,7 @@ import Observation
     func updateImages() {
         self.imagePositions = []
         for i in stride(from: -1, through: 1, by: 1) {
-            for j in stride(from: -1, through: 1, by: 1){
+            for j in stride(from: -1, through: 1, by: 1) {
                 self.imagePositions.append([self.position[0] + Double(i)*boxSize, self.position[1] + Double(j)*boxSize])
             }
         }

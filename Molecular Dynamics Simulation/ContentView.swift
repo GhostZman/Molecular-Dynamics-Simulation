@@ -40,23 +40,23 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            TimelineView(.animation) { timelineContext in
-                let value = secondsValue(for: timelineContext.date)
-                
-                Canvas(
-                    opaque: true,
-                    colorMode: .linear,
-                    rendersAsynchronously: false
-                ) { context, size in
-                    let newSize = size.applying(.init(scaleX: value, y:1))
-                    let rect = CGRect(origin: .zero, size: newSize)
-                    
-                    context.fill(
-                        Rectangle().path(in: rect),
-                        with: .color(.red)
-                    )
-                }
-            }
+//            TimelineView(.animation) { timelineContext in
+//                let value = secondsValue(for: timelineContext.date)
+//                
+//                Canvas(
+//                    opaque: true,
+//                    colorMode: .linear,
+//                    rendersAsynchronously: true
+//                ) { context, size in
+//                    let newSize = size.applying(.init(scaleX: value, y:1))
+//                    let rect = CGRect(origin: .zero, size: newSize)
+//                    
+//                    context.fill(
+//                        Rectangle().path(in: rect),
+//                        with: .color(.red)
+//                    )
+//                }
+//            }
             Button("Start", action: sim)
         }
     }
