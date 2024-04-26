@@ -12,100 +12,123 @@ import SwiftUI
 @Observable class MDSimulation: ObservableObject{
     var boxLength: Int = 1
     var numAtoms: Int = 4
-    var nMax: Int = 4
+    var nStep: Int = 5000
+    var stepSize: Double = 0.004
+    var halfTimeStep: Double = 0.002
+    var PE: Double = 0.0
+    var KE: Double = 0.0
+    var temperature: Double = 0.0
+    var initialTemperature: Double = 10.0
+    let nDim: Int = 3
+    let nPrint: Int = 100
+    var conditionsSet: Bool = false
     
     var atoms: [Particle3D] = []
 
-    init() {
-        self.nMax = self.numAtoms
-        
-    }
     
     //let objectWillChange = PassthroughSubject<Void, Never>()
     
-    func runSimulation() {
-        var atomIndex: Int
-        var timeIndex: Int
-        let nStep: Int = 5000
-        let nPrint: Int = 100
-        let nDim: Int = 1
-        
-        let stepSize: Double = 0.004
-        var halfTimeStep: Double
-        var PE: Double
-        var KE: Double
-        var temperature: Double
-        let initialTemperature: Double = 10.0
-        
-        self.boxLength = Int(pow(Double(numAtoms), 1.0/Double(nDim)))
-        self.numAtoms = Int(pow(Double(boxLength),Double(nDim)))
-        
-        print("numAtoms = \(numAtoms) boxLength = \(boxLength)")
-        atomIndex = -1
-        for ix in stride(from: 0, through: boxLength-1, by: 1){  //Set up lattice of side boxLength
-            atomIndex = atomIndex+1
-            let atomPosition = [Double(ix), Double(ix), Double(ix)]   // Inital velocities
-            var atomVelocity = (Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0))/12.0 - 0.5
-            var phiDirection = Double.random(in: 0.0 ... Double.pi)
-            var thetaDirection = Double.random(in:0.0 ... Double.pi)
-            atomVelocity = atomVelocity*sqrt(initialTemperature)   // Scale v with temperature
-            var velocityVector = [atomVelocity*cos(phiDirection)*sin(thetaDirection), atomVelocity*sin(phiDirection)*sin(thetaDirection), atomVelocity*cos(thetaDirection)]
-            atoms.append(Particle3D(position: atomPosition, velocity: velocityVector,  boxSize: Double(boxLength)))
+    func randVelocityVector() -> [Double]{ // Inital velocities
+        var atomVelocity = (Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0))/12.0 - 0.5
+        var phiDirection = Double.random(in: 0.0 ... Double.pi)
+        var thetaDirection = Double.random(in:0.0 ... Double.pi)
+        atomVelocity = atomVelocity*sqrt(initialTemperature)   // Scale v with temperature
+        var velocityVector = [atomVelocity*cos(phiDirection)*sin(thetaDirection), atomVelocity*sin(phiDirection)*sin(thetaDirection), atomVelocity*cos(thetaDirection)]
+        return velocityVector
+    }
+    
+    func setInitialTemperature(temp: Double){
+        self.initialTemperature = temp
+    }
+    
+    func makeParticles(option: String) {
+        switch option {
+        case "FCC Lattice":
+            self.boxLength = 2
+            self.numAtoms = 4
+            atoms.append(Particle3D(position: [0.0, 0.0, 0.0], velocity: randVelocityVector(),  boxSize: Double(boxLength)))
+            atoms.append(Particle3D(position: [0.0, 1.0, 1.0], velocity: randVelocityVector(),  boxSize: Double(boxLength)))
+            atoms.append(Particle3D(position: [1.0, 1.0, 0.0], velocity: randVelocityVector(),  boxSize: Double(boxLength)))
+            atoms.append(Particle3D(position: [1.0, 0.0, 1.0], velocity: randVelocityVector(),  boxSize: Double(boxLength)))
             
-            print("init atomVelocity = \(atoms[atomIndex].velocity)")
-        }
-        halfTimeStep = stepSize/2.0
-        timeIndex = 0
-        KE = 0.0    // inital KE & PE
-        PE = 0.0
-        PE = updateForces()
-        for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1) {
-            KE = KE + (pow(atoms[atomIndex].velocityMagnitude(), 2))/2
-        }
-        //print("\(timeIndex) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
-        print("step: \(timeIndex)\nposition    velocity         force ")
-        atoms.forEach { particle in
-            print(particle.position, particle.velocity, particle.force)
-        }
-        
-        for timeIndex in stride(from: 1, to: nStep, by: 1){     // Main loop
-            //usleep(5000)
-            //objectWillChange.send()
-            for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1) {   // Velocity Verlet
-                for dim in stride(from: 0, through: 2, by: 1){
-                    var newPosition = atoms[atomIndex].position[dim] + stepSize*(atoms[atomIndex].velocity[dim] + halfTimeStep*atoms[atomIndex].force[dim][1])      //PBC
-                    if (newPosition <= 0.0){
-                        newPosition = newPosition + Double(boxLength)
-                    }
-                    if (newPosition >= Double(boxLength)){
-                        newPosition = newPosition - Double(boxLength)
-                    }
-                    atoms[atomIndex].changePosition(newPosition: newPosition, dimIndex: dim)
-                }
-            }
-            PE = updateForces()
-            KE = 0
-            for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1){
-                for dim in stride(from: 0, through: 1, by: 1){
-                    atoms[atomIndex].velocity[dim] = atoms[atomIndex].velocity[dim] + halfTimeStep*(atoms[atomIndex].force[dim][1] + atoms[atomIndex].force[dim][0])
-                }
-                KE = KE + (atoms[atomIndex].velocityMagnitude()*atoms[atomIndex].velocityMagnitude())/2
-            }
-            temperature = 2.0 * KE / (3.0 * Double(numAtoms))
-            print("step: \(timeIndex)\nposition")
-            atoms.forEach { particle in
-                print(particle.position)
-            }
-            if (timeIndex % nPrint == 0){
-                //print("\(timeIndex) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
-                /*print("step: \(timeIndex)\nposition    velocity         force ")
-                atoms.forEach { particle in
-                    print(particle.position, particle.velocity, particle.force)
-                }
-                */
-            }
-        }
+        default:
+            var atomIndex: Int
+            
+            self.boxLength = 4
+            self.numAtoms = 4
+            
+            print("numAtoms = \(numAtoms) boxLength = \(boxLength)")
+            atomIndex = -1
+            for ix in stride(from: 0, through: boxLength-1, by: 1){  //Set up lattice of side boxLength
+                atomIndex = atomIndex+1
+                let atomPosition = [Double(ix), Double(ix), Double(ix)]
+                atoms.append(Particle3D(position: atomPosition, velocity: randVelocityVector(),  boxSize: Double(boxLength)))
                 
+                print("init atomVelocity = \(atoms[atomIndex].velocity)")
+                
+            }
+        }
+        self.conditionsSet = true
+    }
+    
+    func runSimulation() {
+        if conditionsSet {
+            
+            var timeIndex: Int
+            
+            timeIndex = 0
+            KE = 0.0    // inital KE & PE
+            PE = 0.0
+            PE = updateForces()
+            for atomIndex in stride(from: 0, through: atoms.count - 1, by: 1) {
+                KE = KE + (pow(atoms[atomIndex].velocityMagnitude(), 2))/2
+            }
+            //print("\(timeIndex) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
+            print("step: \(timeIndex)\nposition    velocity         force ")
+            atoms.forEach { particle in
+                print(particle.position, particle.velocity, particle.force)
+            }
+            
+            for timeIndex in stride(from: 1, to: nStep, by: 1){     // Main loop
+                //usleep(5000)
+                //objectWillChange.send()
+                for atomIndex in stride(from: 0, through: atoms.count - 1, by: 1) {   // Velocity Verlet
+                    for dim in stride(from: 0, through: 2, by: 1){
+                        var newPosition = atoms[atomIndex].position[dim] + stepSize*(atoms[atomIndex].velocity[dim] + halfTimeStep*atoms[atomIndex].force[dim][1])      //PBC
+                        if (newPosition <= 0.0){
+                            newPosition = newPosition + Double(boxLength)
+                        }
+                        if (newPosition >= Double(boxLength)){
+                            newPosition = newPosition - Double(boxLength)
+                        }
+                        atoms[atomIndex].changePosition(newPosition: newPosition, dimIndex: dim)
+                    }
+                }
+                PE = updateForces()
+                KE = 0
+                for atomIndex in stride(from: 0, through: atoms.count - 1, by: 1){
+                    for dim in stride(from: 0, through: 1, by: 1){
+                        atoms[atomIndex].velocity[dim] = atoms[atomIndex].velocity[dim] + halfTimeStep*(atoms[atomIndex].force[dim][1] + atoms[atomIndex].force[dim][0])
+                    }
+                    KE = KE + (atoms[atomIndex].velocityMagnitude()*atoms[atomIndex].velocityMagnitude())/2
+                }
+                temperature = 2.0 * KE / (3.0 * Double(atoms.count))
+                print("step: \(timeIndex)\nposition")
+                atoms.forEach { particle in
+                    print(particle.position)
+                }
+                if (timeIndex % nPrint == 0){
+                    //print("\(timeIndex) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
+                    /*print("step: \(timeIndex)\nposition    velocity         force ")
+                     atoms.forEach { particle in
+                     print(particle.position, particle.velocity, particle.force)
+                     }
+                     */
+                }
+            }
+        } else {
+            print("Inital conditions not set")
+        }
     }
     
     func updateForces() -> Double {   //run this AFTER updating positions BEFORE updating velocities
@@ -120,15 +143,15 @@ import SwiftUI
         let cutoffSeparation2: Double = 9.0
         
         var newPE: Double = 0.0     // Initialize
-        for i in stride(from: 0, through: numAtoms - 1, by: 1) {
+        for i in stride(from: 0, through: atoms.count - 1, by: 1) {
             for dim in stride(from: 0, through: 2, by: 1) {
                 atoms[i].force[dim][0] = atoms[i].force[dim][1]
                 atoms[i].force[dim][1] = 0
             }
         }
         
-        for i in stride(from: 0, through: numAtoms - 2, by: 1){
-            for j in stride(from: i+1, through: numAtoms - 1, by: 1) {
+        for i in stride(from: 0, through: atoms.count - 2, by: 1){
+            for j in stride(from: i+1, through: atoms.count - 1, by: 1) {
                 for atomImage in atoms[j].imagePositions{
                     displacementX = atoms[i].position[0] - atomImage[0]
                     displacementY = atoms[i].position[1] - atomImage[1]

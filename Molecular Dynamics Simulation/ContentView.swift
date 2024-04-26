@@ -37,6 +37,8 @@ struct ContentView: View {
     @State private var isDragging: Bool = false
     @State private var draggedIndex: Int?
     
+    let initalConditionsOptions = ["default", "FCC Lattice"]
+    @State private var selectedOptionIndex = 0
     
     var body: some View {
         VStack {
@@ -57,10 +59,16 @@ struct ContentView: View {
 //                    )
 //                }
 //            }
+            Picker("Select Conditions", selection: $selectedOptionIndex) {
+                ForEach(0 ..< initalConditionsOptions.count) {
+                    Text(self.initalConditionsOptions[$0])
+                }
+            }
             Button("Start", action: sim)
         }
     }
     func sim(){
+        mySim.makeParticles(option: initalConditionsOptions[selectedOptionIndex])
         mySim.runSimulation()
     }
     
