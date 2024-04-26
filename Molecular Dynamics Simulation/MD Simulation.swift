@@ -14,7 +14,7 @@ import SwiftUI
     var numAtoms: Int = 4
     var nMax: Int = 4
     
-    var atoms: [Particle2D] = []
+    var atoms: [Particle3D] = []
 
     init() {
         self.nMax = self.numAtoms
@@ -44,12 +44,13 @@ import SwiftUI
         atomIndex = -1
         for ix in stride(from: 0, through: boxLength-1, by: 1){  //Set up lattice of side boxLength
             atomIndex = atomIndex+1
-            let atomPosition = [Double(ix), 0.0]   // Inital velocities
+            let atomPosition = [Double(ix), Double(ix), Double(ix)]   // Inital velocities
             var atomVelocity = (Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0)+Double.random(in: 0.0 ... 1.0))/12.0 - 0.5
-            var direction = Double.random(in: 0.0 ... Double.pi)
+            var phiDirection = Double.random(in: 0.0 ... Double.pi)
+            var thetaDirection = Double.random(in:0.0 ... Double.pi)
             atomVelocity = atomVelocity*sqrt(initialTemperature)   // Scale v with temperature
-            var velocityVector = [atomVelocity*cos(direction), atomVelocity*sin(direction)]
-            atoms.append(Particle2D(position: atomPosition, velocity: velocityVector,  boxSize: Double(boxLength)))
+            var velocityVector = [atomVelocity*cos(phiDirection)*sin(thetaDirection), atomVelocity*sin(phiDirection)*sin(thetaDirection), atomVelocity*cos(thetaDirection)]
+            atoms.append(Particle3D(position: atomPosition, velocity: velocityVector,  boxSize: Double(boxLength)))
             
             print("init atomVelocity = \(atoms[atomIndex].velocity)")
         }
@@ -71,7 +72,7 @@ import SwiftUI
             //usleep(5000)
             //objectWillChange.send()
             for atomIndex in stride(from: 0, through: numAtoms - 1, by: 1) {   // Velocity Verlet
-                for dim in stride(from: 0, through: 1, by: 1){
+                for dim in stride(from: 0, through: 2, by: 1){
                     var newPosition = atoms[atomIndex].position[dim] + stepSize*(atoms[atomIndex].velocity[dim] + halfTimeStep*atoms[atomIndex].force[dim][1])      //PBC
                     if (newPosition <= 0.0){
                         newPosition = newPosition + Double(boxLength)
@@ -91,9 +92,9 @@ import SwiftUI
                 KE = KE + (atoms[atomIndex].velocityMagnitude()*atoms[atomIndex].velocityMagnitude())/2
             }
             temperature = 2.0 * KE / (3.0 * Double(numAtoms))
-            print("step: \(timeIndex)\nposition    velocity         force ")
+            print("step: \(timeIndex)\nposition")
             atoms.forEach { particle in
-                print(particle.position, particle.velocity, particle.force)
+                print(particle.position)
             }
             if (timeIndex % nPrint == 0){
                 //print("\(timeIndex) PE = \(PE) KE = \(KE) PE+KE = \(PE+KE)")
@@ -113,12 +114,14 @@ import SwiftUI
         var inverseSeparation2: Double = 0.0
         var displacementX: Double
         var displacementY: Double
-        var angle: Double
+        var displacementZ: Double
+        var phiAngle: Double
+        var thetaAngle: Double
         let cutoffSeparation2: Double = 9.0
         
         var newPE: Double = 0.0     // Initialize
         for i in stride(from: 0, through: numAtoms - 1, by: 1) {
-            for dim in stride(from: 0, through: 1, by: 1) {
+            for dim in stride(from: 0, through: 2, by: 1) {
                 atoms[i].force[dim][0] = atoms[i].force[dim][1]
                 atoms[i].force[dim][1] = 0
             }
@@ -129,13 +132,15 @@ import SwiftUI
                 for atomImage in atoms[j].imagePositions{
                     displacementX = atoms[i].position[0] - atomImage[0]
                     displacementY = atoms[i].position[1] - atomImage[1]
-                    if displacementX > 0 {
-                        angle = atan(displacementY/displacementX)
+                    displacementZ = atoms[i].position[2] - atomImage[2]
+                    
+                    thetaAngle = acos(displacementZ/sqrt(pow(displacementX, 2)+pow(displacementY, 2)+pow(displacementZ, 2)))
+                    if displacementY > 0 {
+                        phiAngle = acos(displacementX/sqrt(pow(displacementX, 2)+pow(displacementY, 2)))
+                    } else {
+                        phiAngle = -acos(displacementX/sqrt(pow(displacementX, 2)+pow(displacementY, 2)))
                     }
-                    else {
-                        angle = atan(displacementY/displacementX) + Double.pi
-                    }
-                    separation2 = pow(displacementX, 2) + pow(displacementY, 2)
+                    separation2 = pow(displacementX, 2) + pow(displacementY, 2) + pow(displacementZ, 2)
                     if (separation2 < cutoffSeparation2) {   // Cut off
                         if (abs(separation2) < 1.0E-7) {
                             separation2 = 1.0E-7
@@ -144,11 +149,14 @@ import SwiftUI
                         forceOfiOnj = 48*(pow(inverseSeparation2, 3.0) - 0.5)*pow(inverseSeparation2, 3.0)
                         forceOfiOnj = forceOfiOnj*inverseSeparation2*sqrt(separation2)
                         
-                        atoms[i].force[0][1] = atoms[i].force[0][1] + forceOfiOnj*cos(angle)
-                        atoms[j].force[0][1] = atoms[j].force[0][1] - forceOfiOnj*cos(angle)
+                        atoms[i].force[0][1] = atoms[i].force[0][1] + forceOfiOnj*sin(thetaAngle)*cos(phiAngle)
+                        atoms[j].force[0][1] = atoms[j].force[0][1] - forceOfiOnj*sin(thetaAngle)*cos(phiAngle)
                         
-                        atoms[i].force[1][1] = atoms[i].force[1][1] + forceOfiOnj*sin(angle)
-                        atoms[j].force[1][1] = atoms[j].force[1][1] - forceOfiOnj*sin(angle)
+                        atoms[i].force[1][1] = atoms[i].force[1][1] + forceOfiOnj*sin(thetaAngle)*sin(phiAngle)
+                        atoms[j].force[1][1] = atoms[j].force[1][1] - forceOfiOnj*sin(thetaAngle)*sin(phiAngle)
+                        
+                        atoms[i].force[2][1] = atoms[i].force[2][1] + forceOfiOnj*cos(thetaAngle)
+                        atoms[j].force[2][1] = atoms[j].force[2][1] - forceOfiOnj*cos(thetaAngle)
                         
                         newPE = newPE + 4 * pow(inverseSeparation2, 3) * (pow(inverseSeparation2, 3) - 1)
                     }

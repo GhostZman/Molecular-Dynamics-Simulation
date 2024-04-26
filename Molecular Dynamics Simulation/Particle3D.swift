@@ -28,7 +28,7 @@ import Observation
             self.velocity = Array(repeating: 0, count: 3)
             print("Velocity has wrong number of dimensions, setting to 0")
         }
-        self.force = Array(repeating: Array(repeating: 0, count: 3), count: 2)
+        self.force = Array(repeating: Array(repeating: 0, count: 2), count: 3)
         self.boxSize = boxSize
         self.imagePositions = []
         self.updateImages()
